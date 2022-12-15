@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Checklist</title>
+</head>
+
+<body>
+    <section id="container">
+        <div id="wrapper">
+            <h1>To Do List</h1>
+            <div class="add-box">
+                <input class="add-input" type="text" id="myInput" placeholder="Add Item...">
+                <button class="add-btn" id="add-button">Add</button>
+
+
+            </div>
+            <div class="list">
+                <ul id="myUL" class="mylist">
+
+                </ul>
+            </div>
+
+    </section>
+
+    <script>
+
+
+
+        const input = document.getElementById("myInput");
+        const addBtn = document.getElementById("add-button");
+        const ulList = document.querySelector("ul");
+        var test = []
+
+       
+
+
+        function addTask() {
+            const liElement = document.createElement("li");
+            var myInput = document.getElementById("myInput").value;
+
+
+            if (myInput === '') {
+
+
+                alert("You must write something!");
+
+            } else {
+
+
+                ulList.appendChild(liElement);
+                liElement.textContent = input.value;
+                input.value = "";
+
+
+                test.push(myInput);
+                localStorage.setItem('myInput', JSON.stringify(test));
+                var retrievedObject = localStorage.getItem('myInput');
+                console.log(retrievedObject);
+
+                var data = JSON.parse(localStorage.getItem("test"));
+                liElement.value = data;
+
+            }
+
+
+
+
+            var deleteBtn = document.createElement("p");
+            liElement.appendChild(deleteBtn);
+            deleteBtn.textContent = "×";
+            deleteBtn.className = "close";
+            deleteBtn.addEventListener("click", function (e) {
+
+                e.target.parentElement.remove();
+
+
+            });
+            // var data = JSON.parse(retrievedData);
+
+        }
+
+        addBtn.addEventListener("click", addTask);
+
+
+        var list = document.querySelector('ul');
+        list.addEventListener('click', function (ev) {
+            if (ev.target.tagName === 'LI') {
+                ev.target.classList.toggle('checked');
+
+            }
+        });
+
+        var enter = document.getElementById("myInput");
+        enter.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                document.getElementById("add-button").click();
+
+            }
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>
